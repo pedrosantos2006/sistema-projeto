@@ -5,20 +5,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema da Papelaria</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.3/font/bootstrap-icons.css">
 
+
+    <?php
+    include "../includes/conexao.php";
+    ?>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .header {
+            background-color: #F27979;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .btn-primary {
+            background-color: #F27979;
+            border-color: #F27979;
+        }
+
+        .btn-primary:hover {
+            background-color: #da4a4a;
+            border-color: #da4a4a;
+        }
+
+        .tabela {
+            margin-top: 30px;
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
-
-
-    <header class="bg- primary text-black text-center py-3" style="background-color: #F27979;">
+    <header class="header">
         Gerenciamento da Papelaria
     </header>
 
-    <main class="container mt-4">
+    <main class="container">
         <div class="row">
             <div class="col-md-3">
                 <a href="#" class="btn btn-primary btn-block mb-3 abrir-tabela" data-tabela="funcionarios">Funcionários</a>
@@ -35,36 +77,83 @@
         </div>
     </main>
 
-    <div id="tabela-funcionarios" class="mt-4 tabela" style="display: none;">
-        <h2>Gerenciamento dos Funcionários</h2>
-        <?php include "includes/funcionarios.php"; ?>
+    <div id="tabela-funcionarios" class="tabela" style="display: none;">
+        <div class="container">
+
+            <?php
+            include "../includes/funcionarios.php";
+            ?>
+
+        </div>
     </div>
 
-    <div id="tabela-clientes" class="mt-4 tabela" style="display: none;">
-        <h2>Gerenciamento dos Clientes</h2>
-        <!-- adiconar tabela -->
+    <div id="tabela-clientes" class="tabela" style="display: none;">
+        <div class="container">
+
+            <?php
+            include "../includes/clientes.php";
+            ?>
+        </div>
     </div>
 
-    <div id="tabela-produtos" class="mt-4 tabela" style="display: none;">
-        <h2>Gerenciamento de Produtos</h2>
-        <!-- adiconar tabela -->
+    <div id="tabela-produtos" class="tabela" style="display: none;">
+        <div class="container">
+
+            <?php
+            include "../includes/produtos.php";
+            ?>
+
+        </div>
     </div>
 
-    <div id="tabela-suporte" class="mt-4 tabela" style="display:none;">
-        <h2>Gerenciamento do Suporte</h2>
-        <!-- adicionar tabela -->
+    <div id="tabela-suporte" class="tabela" style="display: none;">
+        <div class="container">
+
+            <?php
+            include "../includes/suporte.php";
+            ?>
+        </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
+        $(document).ready(function() {
+            $('.visualizar').on('click', function() {
+
+                var nome = $(this).closest('tr').find('td:first-child').text();
+                console.log('Visualizar: ' + nome);
+            });
+
+            $('.editar').on('click', function() {
+
+                var nome = $(this).closest('tr').find('td:first-child').text();
+                console.log('Editar: ' + nome);
+            });
+
+            $('.excluir').on('click', function() {
+
+                var nome = $(this).closest('tr').find('td:first-child').text();
+                console.log('Excluir: ' + nome);
+            });
+        });
+
+
         $('.abrir-tabela').on('click', function() {
             var tabela = $(this).data('tabela');
             $('.tabela').hide();
             $('#tabela-' + tabela).fadeIn();
         });
+
+        $(document).ready(function() {
+            $('.table tbody tr').on('click', function() {
+                $(this).siblings().find('.opcoes').hide();
+                $(this).find('.opcoes').toggle();
+            });
+        });
     </script>
 
-    <footer class="bg-dark text-white text-center py-3 mt-4">
-        <p>&copy; Todos os direitos reservados</p> <!-- texto temporario, nao esqueca de mudar -->
+    <footer class="footer">
+        <p>&copy; Criado pelos integrantes Pedro Santos, Henrique, Geovana e Guilherme </p>
     </footer>
 </body>
 
